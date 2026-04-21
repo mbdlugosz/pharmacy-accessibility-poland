@@ -105,14 +105,19 @@ pharmacy-accessibility-poland/
 
 ## Jak Uruchomić Projekt
 
+Wymagania:
+
+- Python `3.13+`
+- `uv` lub `pip`
+
+Dane wejściowe są już dostępne w katalogu `data/`.
+
 ### Wariant z `uv`
 
 ```bash
 uv sync
 uv run jupyter lab
 ```
-
-Po uruchomieniu otwórz notebook `EDA.ipynb`.
 
 ### Wariant z `pip`
 
@@ -122,3 +127,5 @@ python -m venv .venv
 pip install -e .
 jupyter lab
 ```
+
+Po uruchomieniu otwórz notebook `EDA.ipynb`.
