@@ -1,69 +1,74 @@
 # Dostępność Aptek w Polsce
 
-Analiza dostępności aptek w Polsce na poziomie województw z uwzględnieniem dwóch perspektyw:
+Projekt analityczny badający dostępność aptek w Polsce na poziomie województw z perspektywy całej populacji oraz mieszkańców w wieku 70+.
 
-- liczby aptek na 100 tys. mieszkańców ogółem,
-- liczby aptek na 100 tys. mieszkańców w wieku 70+.
+Celem analizy było sprawdzenie, czy rozmieszczenie infrastruktury farmaceutycznej odpowiada potrzebom demograficznym, szczególnie w regionach z większą liczbą seniorów.
 
-Projekt ma charakter eksploracyjny i pokazuje, czy rozmieszczenie aptek lepiej odpowiada całkowitej liczbie ludności, czy także strukturze wieku mieszkańców.
+Analiza porównuje dwa wskaźniki:
 
-## Cel projektu
+- liczbę aptek na 100 000 mieszkańców ogółem,
+- liczbę aptek na 100 000 mieszkańców w wieku 70+.
 
-Celem analizy jest porównanie dostępności aptek pomiędzy województwami oraz sprawdzenie, czy regiony o większym udziale seniorów mają proporcjonalnie lepszy dostęp do infrastruktury farmaceutycznej.
+Pytania badawcze:
 
-Główne pytania badawcze:
+- Czy województwa różnią się pod względem dostępności aptek?
+- Czy ranking regionów zmienia się po przejściu z populacji ogółem na populację 70+?
+- Czy rozmieszczenie aptek wygląda na dopasowane do struktury wieku mieszkańców?
 
-- Jak bardzo różni się liczba aptek w przeliczeniu na 100 tys. mieszkańców między województwami?
-- Czy obraz zmienia się po ograniczeniu populacji odniesienia do grupy 70+?
-- Które województwa wypadają najlepiej i najsłabiej w obu ujęciach?
+## Dane
 
-## Zakres analizy
+W projekcie wykorzystano trzy lokalne źródła danych z katalogu `data/`:
 
-Analiza została wykonana w notebooku [EDA.ipynb](EDA.ipynb).
-
-Workflow obejmuje:
-
-1. wczytanie rejestru aptek,
-2. odfiltrowanie aktywnych placówek,
-3. agregację liczby aptek do poziomu województw,
-4. połączenie danych z informacją o liczbie mieszkańców i seniorów 70+,
-5. wyliczenie wskaźników na 100 tys. mieszkańców,
-6. wizualizację wyników na wykresach i mapie Polski.
-
-## Źródła danych
-
-Repozytorium zawiera lokalne pliki wejściowe w katalogu `data/`:
-
-- `data/Rejestr_Aptek_stan_na_dzien_2026-04-21.csv` - rejestr aptek,
-- `data/LUDN_2137_CTAB_20260414235116.csv` - dane o ludności ogółem i populacji 70+,
-- `data/wojewodztwa/` - granice województw wykorzystywane do wizualizacji przestrzennej.
+- `Rejestr_Aptek_stan_na_dzien_2026-04-21.csv` - rejestr aptek,
+- `LUDN_2137_CTAB_20260414235116.csv` - dane o liczbie ludności ogółem i populacji 70+,
+- `wojewodztwa/` - pliki geoprzestrzenne z granicami województw do map.
 
 ## Metodologia
 
-W analizie:
+Analiza została wykonana w notebooku [EDA.ipynb](EDA.ipynb). Główne kroki:
 
-- uwzględniono aktywne apteki i punkty apteczne,
-- ujednolicono nazwy województw, aby możliwe było połączenie zbiorów,
-- policzono dwa wskaźniki:
-  - `apteki_na_100k` - liczba aptek na 100 000 mieszkańców,
-  - `apteki_na_100k_70plus` - liczba aptek na 100 000 mieszkańców w wieku 70+,
-- porównano województwa w rankingu oraz na mapie.
+1. Wczytanie rejestru aptek i wybór kluczowych kolumn.
+2. Odfiltrowanie placówek aktywnych.
+3. Ograniczenie danych do aptek ogólnodostępnych i punktów aptecznych.
+4. Ujednolicenie nazw województw.
+5. Agregacja liczby aptek do poziomu województw.
+6. Połączenie danych o aptekach z danymi demograficznymi.
+7. Wyliczenie wskaźników na 100 000 mieszkańców.
+8. Przygotowanie wykresu porównawczego i map województw.
 
-## Najważniejsze wnioski
+Wskaźniki:
 
-Na podstawie wyników zapisanych w notebooku:
+- `apteki_na_100k` - liczba aptek na 100 000 mieszkańców,
+- `apteki_na_100k_70plus` - liczba aptek na 100 000 mieszkańców w wieku 70+,
+- `roznica` - różnica między dostępnością dla seniorów i dla populacji ogółem.
 
-- zróżnicowanie dostępności aptek względem całej populacji jest relatywnie umiarkowane między województwami,
-- po przeliczeniu wskaźnika na populację 70+ różnice wyraźnie rosną,
-- sugeruje to, że rozmieszczenie aptek jest lepiej dopasowane do ogólnej liczby mieszkańców niż do struktury wieku,
-- najwyższy wskaźnik dostępności dla seniorów 70+ odnotowano w województwie wielkopolskim: `283` apteki na 100 tys. osób 70+,
-- najniższy wskaźnik dla seniorów 70+ odnotowano w województwie śląskim: `206` aptek na 100 tys. osób 70+.
+## Najważniejsze Wnioski
 
-Przykładowe wyniki z notebooka:
+- dostępność aptek liczona względem całej populacji jest między województwami dość zbliżona,
+- po przeliczeniu wskaźnika na grupę 70+ rozpiętość wyników wyraźnie rośnie,
+- sugeruje to, że rozmieszczenie aptek jest bardziej dopasowane do liczby mieszkańców niż do struktury wieku,
+- najwyższy wskaźnik dla populacji 70+ odnotowano w województwie `WIELKOPOLSKIM` - `283` apteki na 100 tys. mieszkańców 70+,
+- najniższy wskaźnik dla populacji 70+ odnotowano w województwie `ŚLĄSKIM` - `206` aptek na 100 tys. mieszkańców 70+.
 
-- najwyższe wartości `apteki_na_100k`: `LUBELSKIE`, `WIELKOPOLSKIE`, `ŁÓDZKIE`,
-- najwyższe wartości `apteki_na_100k_70plus`: `WIELKOPOLSKIE`, `PODLASKIE`, `PODKARPACKIE`,
-- najniższe wartości `apteki_na_100k_70plus`: `ŚLĄSKIE`, `ŚWIĘTOKRZYSKIE`, `DOLNOŚLĄSKIE`.
+Przykładowe rankingi z notebooka:
+
+- najwyższe `apteki_na_100k`: `LUBELSKIE`, `WIELKOPOLSKIE`, `ŁÓDZKIE`,
+- najwyższe `apteki_na_100k_70plus`: `WIELKOPOLSKIE`, `PODLASKIE`, `PODKARPACKIE`,
+- najniższe `apteki_na_100k_70plus`: `ŚLĄSKIE`, `ŚWIĘTOKRZYSKIE`, `DOLNOŚLĄSKIE`.
+
+## Wizualizacje
+
+### Porównanie wskaźników
+
+![Porównanie dostępności aptek](assets/readme/wykres-porownanie-dostepnosci.png)
+
+### Mapa dostępności dla seniorów 70+
+
+![Mapa dostępności dla seniorów](assets/readme/mapa-seniorzy-70plus.png)
+
+### Mapa różnicy dostępności
+
+![Mapa różnicy dostępności](assets/readme/mapa-roznica-dostepnosci.png)
 
 ## Technologie
 
@@ -76,22 +81,29 @@ Projekt został przygotowany w Pythonie z użyciem:
 - `adjustText`
 - `jupyterlab`
 
-Zależności są zdefiniowane w [pyproject.toml](pyproject.toml) oraz zablokowane w `uv.lock`.
+Konfiguracja środowiska znajduje się w [pyproject.toml](pyproject.toml), a pełna blokada zależności w `uv.lock`.
 
-## Struktura repozytorium
+## Struktura Repozytorium
 
 ```text
 pharmacy-accessibility-poland/
+|-- assets/
+|   `-- readme/
+|       |-- wykres-porownanie-dostepnosci.png
+|       |-- mapa-seniorzy-70plus.png
+|       |-- mapa-ogol-mieszkancow.png
+|       `-- mapa-roznica-dostepnosci.png
 |-- data/
 |   |-- Rejestr_Aptek_stan_na_dzien_2026-04-21.csv
 |   |-- LUDN_2137_CTAB_20260414235116.csv
 |   `-- wojewodztwa/
 |-- EDA.ipynb
 |-- pyproject.toml
-`-- uv.lock
+|-- uv.lock
+`-- README.md
 ```
 
-## Jak uruchomić projekt
+## Jak Uruchomić Projekt
 
 ### Wariant z `uv`
 
@@ -100,7 +112,7 @@ uv sync
 uv run jupyter lab
 ```
 
-Następnie otwórz notebook `EDA.ipynb`.
+Po uruchomieniu otwórz notebook `EDA.ipynb`.
 
 ### Wariant z `pip`
 
@@ -110,14 +122,3 @@ python -m venv .venv
 pip install -e .
 jupyter lab
 ```
-
-## Potencjalne rozszerzenia
-
-- analiza na niższym poziomie agregacji, np. powiatów lub gmin,
-- uwzględnienie gęstości zaludnienia i urbanizacji,
-- analiza zmian w czasie dla kolejnych okresów,
-- rozszerzenie o wskaźniki odległości lub czasu dojazdu do najbliższej apteki.
-
-## Autor
-
-Projekt został przygotowany jako portfolio / projekt analityczny dotyczący dostępności usług farmaceutycznych w Polsce.
